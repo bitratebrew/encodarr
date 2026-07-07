@@ -1,0 +1,266 @@
+    <!-- ── Dashboard view ─────────────────────────────────────────────── -->
+    <section class="view active" id="view-dashboard">
+      <div class="stats-section-label">Library</div>
+      <div class="stats-grid">
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('candidates')">
+          <div class="stat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
+          <div class="stat-label">Total Files</div>
+          <div class="stat-value" id="stat-total">—</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('candidates')">
+          <div class="stat-icon" style="color:#a09af8">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <div class="stat-label">Encode Candidates</div>
+          <div class="stat-value" id="stat-encode-candidates">—</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('candidates')">
+          <div class="stat-icon" style="color:#fbbf24">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="stat-label">Pending Review</div>
+          <div class="stat-value" id="stat-pending">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#34d399">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="stat-label">Space Saved</div>
+          <div class="stat-value" id="stat-saved">—</div>
+        </div>
+        <div class="stat-card" id="stat-removed-card" style="display:none; border-color:#f87171">
+          <div class="stat-icon" style="color:#f87171">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="stat-label">Missing</div>
+          <div class="stat-value" id="stat-removed">—</div>
+        </div>
+      </div>
+      <div class="stats-section-label">Queue</div>
+      <div class="stats-grid">
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('queue')">
+          <div class="stat-icon" style="color:#7ab4fa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="stat-label">In Queue</div>
+          <div class="stat-value" id="stat-queued">—</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('queue')">
+          <div class="stat-icon" style="color:#fbbf24">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+            </svg>
+          </div>
+          <div class="stat-label">Encoding</div>
+          <div class="stat-value" id="stat-encoding">—</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('history')">
+          <div class="stat-icon" style="color:#34d399">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="stat-label">Completed</div>
+          <div class="stat-value" id="stat-complete">—</div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="navigateTo('history')">
+          <div class="stat-icon" style="color:#f87171">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="stat-label">Failed</div>
+          <div class="stat-value" id="stat-failed">—</div>
+        </div>
+      </div>
+
+      <div class="stats-section-label">System</div>
+
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:8px;letter-spacing:0.5px">HOST</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#60a5fa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <div class="stat-label">CPU</div>
+          <div class="stat-value" id="stat-cpu">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-cpu-subtitle">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#a09af8">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="stat-label">Memory</div>
+          <div class="stat-value" id="stat-memory">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-memory-subtitle">—</div>
+        </div>
+        <div class="stat-card" id="stat-gpu-card" style="display:none">
+          <div class="stat-icon" style="color:#34d399">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+            </svg>
+          </div>
+          <div class="stat-label">GPU</div>
+          <div class="stat-value" id="stat-gpu">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px">NVIDIA</div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:16px 0 8px;letter-spacing:0.5px">ENCODARR</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#60a5fa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <div class="stat-label">Encodarr CPU</div>
+          <div class="stat-value" id="stat-container-cpu">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-container-cpu-subtitle">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#a09af8">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div class="stat-label">Encodarr Memory</div>
+          <div class="stat-value" id="stat-container-memory">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-container-memory-subtitle">—</div>
+        </div>
+        <div class="stat-card" id="stat-container-gpu-card" style="display:none">
+          <div class="stat-icon" style="color:#34d399">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+            </svg>
+          </div>
+          <div class="stat-label">Encodarr GPU</div>
+          <div class="stat-value" id="stat-container-gpu">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px">NVIDIA</div>
+        </div>
+      </div>
+
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin:16px 0 8px;letter-spacing:0.5px">ENCODING</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#fbbf24">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+            </svg>
+          </div>
+          <div class="stat-label">Current Job</div>
+          <div class="stat-value" id="stat-job-percent">—</div>
+          <div class="stat-progress-bar"><div class="stat-progress-fill" id="bar-job-percent"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#34d399">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="stat-label">Queue Progress</div>
+          <div class="stat-value" id="stat-queue-percent">—</div>
+          <div class="stat-progress-bar"><div class="stat-progress-fill" id="bar-queue-percent"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#60a5fa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <div class="stat-label">Queue Depth</div>
+          <div class="stat-value" id="stat-queue-depth">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-queue-depth-sub"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="color:#a78bfa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div class="stat-label">Active Encodes</div>
+          <div class="stat-value" id="stat-active-encodes">—</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px" id="stat-active-encodes-sub"></div>
+        </div>
+      </div>
+
+      <div class="dashboard-content">
+        <div class="scan-cards-grid">
+          <div class="panel" style="padding:20px;display:flex;flex-direction:column;">
+            <div class="scan-card-title">Scan Library</div>
+            <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;flex:1">
+              Scan your media library to discover new candidates for re-encoding.
+            </p>
+            <div id="scan-result" class="hidden" style="margin-bottom:12px"></div>
+            <button class="btn btn-primary" id="scan-btn" style="width:100%;justify-content:center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              Scan Now
+            </button>
+            <button class="btn btn-secondary" id="eval-rules-btn" style="width:100%;justify-content:center;margin-top:8px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+              Evaluate Rules
+            </button>
+          </div>
+          <div class="panel" style="padding:20px">
+            <div class="scan-card-title">Automation Status</div>
+            <div class="scan-status-row">
+              <span class="scan-status-label">Auto-Scan</span>
+              <span class="scan-status-value" id="dash-auto-scan">—</span>
+            </div>
+            <div class="scan-status-row">
+              <span class="scan-status-label">Auto-Approve</span>
+              <span class="scan-status-value" id="dash-auto-approve">—</span>
+            </div>
+            <div class="scan-status-row">
+              <span class="scan-status-label">CPU Governor</span>
+              <span class="scan-status-value" id="dash-cpu-governor">—</span>
+            </div>
+            <div class="scan-status-row">
+              <span class="scan-status-label">Next Scan</span>
+              <span class="scan-status-value" id="dash-next-scan" style="font-size:12px">—</span>
+            </div>
+            <div class="scan-status-row">
+              <span class="scan-status-label">Last Scan</span>
+              <span class="scan-status-value" id="dash-last-scan" style="font-size:12px">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Recent Activity</span>
+          <button class="btn btn-ghost btn-sm" data-view="history">View all</button>
+        </div>
+        <div class="panel">
+          <div id="activity-list" class="activity-list">
+            <div class="empty-state">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <p>No recent activity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

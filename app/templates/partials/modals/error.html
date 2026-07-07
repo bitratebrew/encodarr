@@ -1,0 +1,17 @@
+<!-- ── Error Detail Modal ────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="error-modal">
+  <div class="modal">
+    <div class="modal-title">Encode Error Details</div>
+    <div class="modal-subtitle modal-subtitle-filename" id="error-modal-filename"></div>
+
+    <div class="form-group">
+      <textarea id="error-modal-text" readonly
+        style="width:100%;height:180px;resize:vertical;font-family:monospace;font-size:12px;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:10px;box-sizing:border-box;white-space:pre-wrap;word-break:break-all;"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="error-modal-copy">Copy</button>
+      <button class="btn btn-primary" id="error-modal-close">Close</button>
+    </div>
+  </div>
+</div>

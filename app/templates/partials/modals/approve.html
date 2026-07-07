@@ -1,0 +1,72 @@
+<!-- ── Approve Modal ─────────────────────────────────────────────────────── -->
+<div class="modal-overlay" id="approve-modal">
+  <div class="modal">
+    <div class="modal-title">Approve for Encoding</div>
+    <div class="modal-subtitle modal-subtitle-filename" id="approve-modal-filename">file.mkv</div>
+
+    <div class="form-group">
+      <label class="form-label" for="codec-select">Target Codec</label>
+      <select class="form-select" id="codec-select">
+        <option value="hevc">HEVC (H.265) — Recommended</option>
+        <option value="av1">AV1 — Best compression</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="hw-toggle-group">
+      <div class="toggle-row">
+        <span class="toggle-label">Hardware Encoding</span>
+        <label class="toggle">
+          <input type="checkbox" id="hw-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div id="hw-none-note" style="display:none; font-size:0.8rem; color:var(--text-muted); margin-top:4px;">No hardware encoders detected</div>
+    </div>
+
+    <div class="form-group" id="hw-type-group" style="display:none;">
+      <label class="form-label" for="hw-type-select">Hardware Type</label>
+      <select class="form-select" id="hw-type-select"></select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Quality</label>
+      <div class="quality-btns" id="quality-btns">
+        <button type="button" class="quality-btn" data-quality="1">Max<br>Compress<span class="quality-est"></span></button>
+        <button type="button" class="quality-btn" data-quality="2">High<br>Compress<span class="quality-est"></span></button>
+        <button type="button" class="quality-btn" data-quality="3">Balanced<span class="quality-est"></span></button>
+        <button type="button" class="quality-btn" data-quality="4">High<br>Quality<span class="quality-est"></span></button>
+        <button type="button" class="quality-btn" data-quality="5">Near<br>Lossless<span class="quality-est"></span></button>
+        <button type="button" class="quality-btn active" data-quality="0">Auto<span class="quality-est"></span></button>
+      </div>
+      <div id="approve-bitrate-hint" style="font-size:11px;color:var(--text-muted);margin-top:10px;min-height:14px;text-align:center"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="resolution-select">Resolution</label>
+      <select class="form-select" id="resolution-select">
+        <option value="">Keep Original</option>
+        <option value="4k">4K</option>
+        <option value="1080p">1080p</option>
+        <option value="720p">720p</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Output Mode</label>
+      <div class="segmented" id="output-mode-btns">
+        <button type="button" class="segmented-btn" data-mode="replace">Replace Original</button>
+        <button type="button" class="segmented-btn active" data-mode="copy">Create Copy</button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-outline" id="approve-cancel">Cancel</button>
+      <button class="btn btn-primary" id="approve-submit">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Approve
+      </button>
+    </div>
+  </div>
+</div>

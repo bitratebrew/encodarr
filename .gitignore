@@ -1,0 +1,25 @@
+# Specifies files and directories Git should not track.
+# Covers Python artifacts, virtual environments, local config, and OS noise.
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+*.db
+*.sqlite3
+.DS_Store
+Thumbs.db
+/transcode/
+/media/
+/data/
+start-encodarr.sh
+CLAUDE.md
+AGENTS.md
+TODO.md
+TODO_History.md
+.claude/
+.zed/

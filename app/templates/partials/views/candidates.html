@@ -1,0 +1,47 @@
+    <!-- ── Candidates view ────────────────────────────────────────────── -->
+    <section class="view" id="view-candidates">
+      <div class="section-header">
+        <span class="section-title">Media Candidates</span>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="text" class="form-input" id="candidates-search" placeholder="Search filenames…" style="width:180px;padding:5px 10px;font-size:12px;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);white-space:nowrap;cursor:pointer;">
+            <label class="toggle" style="margin:0;">
+              <input type="checkbox" id="candidates-encode-only" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            Encode candidates only
+          </label>
+          <select class="form-select" id="candidates-filter" style="width:auto;padding:6px 28px 6px 10px;font-size:12px;">
+            <option value="">Active statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="encoding">Encoding</option>
+            <option value="failed">Failed</option>
+            <option value="missing">Missing</option>
+          </select>
+          <select class="form-select" id="candidates-sort-by" style="width:auto;padding:5px 24px 5px 8px;font-size:12px;">
+            <option value="date_discovered">Discovered</option>
+            <option value="file_path">File Name</option>
+            <option value="current_codec">Codec</option>
+            <option value="current_bitrate">Bitrate</option>
+            <option value="file_size_bytes">Size</option>
+            <option value="estimated_savings_percent">Est. Savings</option>
+            <option value="status">Status</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" id="candidates-sort-dir" style="min-width:32px;padding:5px 8px">↓</button>
+          <button class="btn btn-ghost btn-sm" id="candidates-refresh">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+      <div class="panel">
+        <div id="candidates-table-wrap">
+          <div class="empty-state"><div class="spinner" style="margin:0 auto 12px;"></div><p>Loading…</p></div>
+        </div>
+        <div id="candidates-pagination"></div>
+      </div>
+    </section>

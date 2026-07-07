@@ -1,0 +1,593 @@
+    <!-- ── Settings view ──────────────────────────────────────────────── -->
+    <section class="view" id="view-settings">
+
+      <!-- Encoding Defaults + Resource Governor side by side -->
+      <div class="settings-cards-row">
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Encoding Defaults</div>
+          <div class="settings-card">
+
+            <div class="form-group">
+              <label class="form-label">Default Codec</label>
+              <div class="segmented" id="set-codec-btns">
+                <button type="button" class="segmented-btn active" data-codec="hevc">HEVC (H.265)</button>
+                <button type="button" class="segmented-btn" data-codec="av1">AV1</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Default Quality Level</label>
+              <div class="quality-btns" id="set-quality-btns">
+                <button type="button" class="quality-btn" data-quality="1">Max<br>Compress</button>
+                <button type="button" class="quality-btn" data-quality="2">High<br>Compress</button>
+                <button type="button" class="quality-btn active" data-quality="3">Balanced</button>
+                <button type="button" class="quality-btn" data-quality="4">High<br>Quality</button>
+                <button type="button" class="quality-btn" data-quality="5">Near<br>Lossless</button>
+                <button type="button" class="quality-btn" data-quality="0">Auto</button>
+              </div>
+              <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Auto uses the system-recommended level based on each file's source bitrate.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="set-resolution">Default Resolution</label>
+              <select class="form-select" id="set-resolution">
+                <option value="">Keep Original</option>
+                <option value="4k">4K</option>
+                <option value="1080p">1080p</option>
+                <option value="720p">720p</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">Default Output Mode</label>
+              <div class="segmented" id="set-output-btns">
+                <button type="button" class="segmented-btn active" data-mode="replace">Replace Original</button>
+                <button type="button" class="segmented-btn" data-mode="copy">Create Copy</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Resource Governor</div>
+          <div class="settings-card">
+
+        <div class="settings-governor-top" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+
+          <div>
+            <label class="form-label">Hardware Encoding</label>
+            <div class="toggle-row" style="margin-bottom:6px">
+              <span class="toggle-label">Enabled</span>
+              <label class="toggle">
+                <input type="checkbox" id="set-hw-enabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div id="set-hw-none-note" style="display:none;font-size:12px;color:var(--text-muted)">No hardware encoders detected</div>
+            <div id="set-hw-type-group" style="display:none;margin-top:8px">
+              <select class="form-select" id="set-hw-type"></select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Max Concurrent Encodes</label>
+            <select class="form-select" id="set-max-encodes">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:6px">Max 3. NVENC supports up to 3 simultaneous sessions.</p>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CPU Limit</label>
+          <div class="range-row">
+            <input type="range" id="set-cpu-limit" min="10" max="100" step="5" value="80">
+            <span class="range-value" id="set-cpu-limit-val">80%</span>
+          </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:4px 0 16px">
+
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <label class="form-label" style="margin-bottom:0">Scheduled Windows</label>
+          <label class="toggle">
+            <input type="checkbox" id="set-scheduled-windows-enabled">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div id="scheduled-windows-section" style="display:none;margin-top:16px">
+          <div id="governor-windows-list" style="margin-bottom:12px"></div>
+          <div id="governor-window-form" style="display:none;padding:16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:12px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Label (optional)</label>
+                <input type="text" class="form-input" id="gw-label" placeholder="e.g. Overnight">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Max Concurrent</label>
+                <input type="number" class="form-input" id="gw-max-concurrent" min="1" max="5" value="2">
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">Start Time</label>
+                <input type="time" class="form-input" id="gw-start-time" value="00:00">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <label class="form-label">End Time</label>
+                <input type="time" class="form-input" id="gw-end-time" value="06:00">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:12px">
+              <label class="form-label">CPU Limit</label>
+              <div class="range-row">
+                <input type="range" id="gw-cpu-limit" min="10" max="100" step="5" value="100">
+                <span class="range-value" id="gw-cpu-limit-val">100%</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end">
+              <button class="btn-outline" id="gw-cancel">Cancel</button>
+              <button class="btn btn-primary" id="gw-save">Add Window</button>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="gw-add-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Window
+          </button>
+        </div>
+
+          </div><!-- /.settings-card (Resource Governor) -->
+        </div><!-- /.settings-cards-col -->
+
+      </div><!-- /.settings-cards-row -->
+
+      <!-- Output Filename + Library side by side -->
+      <div class="settings-cards-row">
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Output Filename</div>
+          <div class="settings-card">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div>
+            <label class="form-label">Copy Mode</label>
+            <div class="toggle-row">
+              <span class="toggle-label">Rename on copy</span>
+              <label class="toggle">
+                <input type="checkbox" id="set-rename-copy-enabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Replace Mode</label>
+            <div class="toggle-row">
+              <span class="toggle-label">Rename on replace</span>
+              <label class="toggle">
+                <input type="checkbox" id="set-rename-replace-enabled">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);margin:0 0 16px"></div>
+
+        <div class="form-group">
+          <label class="form-label">Components</label>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <label class="toggle" style="flex-shrink:0">
+                <input type="checkbox" id="set-rename-custom-text-enabled">
+                <span class="toggle-slider"></span>
+              </label>
+              <input type="text" class="form-input" id="set-rename-custom-text" placeholder="e.g. encodarr" style="max-width:200px">
+              <span style="font-size:12px;color:var(--text-muted)">Custom text</span>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Codec <span style="color:var(--text-muted);font-weight:400">(e.g. _hevc)</span></span>
+              <label class="toggle">
+                <input type="checkbox" id="set-rename-include-codec">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Resolution <span style="color:var(--text-muted);font-weight:400">(only if downscaled)</span></span>
+              <label class="toggle">
+                <input type="checkbox" id="set-rename-include-resolution">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="set-rename-separator">Separator</label>
+          <select class="form-select" id="set-rename-separator" style="max-width:200px">
+            <option value="_">Underscore  ( _ )</option>
+            <option value=".">Dot  ( . )</option>
+            <option value="-">Dash  ( - )</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Preview</label>
+          <div id="rename-preview" style="font-family:monospace;font-size:13px;color:var(--accent);padding:8px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">Movie_encodarr.mkv</div>
+        </div>
+
+          </div>
+        </div><!-- /.settings-cards-col -->
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Library</div>
+          <div class="settings-card">
+
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Media Libraries</label>
+          <div class="library-list" id="library-list"></div>
+
+          <div id="library-add-form" class="library-add-form hidden">
+            <div class="library-add-form-row">
+              <input type="text" class="form-input" id="lib-add-label" placeholder="Label (e.g. Movies)">
+              <div class="lib-path-row">
+                <input type="text" class="form-input" id="lib-add-path" placeholder="/media/Movies">
+                <button type="button" class="btn-outline lib-browse-btn" id="lib-browse-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  Browse
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end">
+              <button class="btn-outline" id="lib-add-cancel">Cancel</button>
+              <button class="btn btn-primary" id="lib-add-submit">Add Library</button>
+            </div>
+          </div>
+
+          <button class="btn btn-ghost btn-sm" id="lib-add-btn" style="margin-top:4px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Library
+          </button>
+          <button class="btn btn-ghost btn-sm" id="settings-scan-all-btn" style="margin-top:4px;margin-left:6px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Scan All Libraries
+          </button>
+        </div>
+
+          </div>
+        </div><!-- /.settings-cards-col -->
+
+      </div><!-- /.settings-cards-row -->
+
+      <!-- Automation + Security/Notifications side by side -->
+      <div class="settings-cards-row">
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Automation</div>
+          <div class="settings-card">
+
+        <div class="form-group">
+          <div class="toggle-row">
+            <span class="toggle-label">Scheduled Scan</span>
+            <label class="toggle">
+              <input type="checkbox" id="set-scan-schedule-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" id="scan-interval-group" style="display:none">
+          <label class="form-label">Scan Interval</label>
+          <select class="form-select" id="set-scan-interval">
+            <option value="1">Every 1 hour</option>
+            <option value="2">Every 2 hours</option>
+            <option value="4">Every 4 hours</option>
+            <option value="8">Every 8 hours</option>
+            <option value="12">Every 12 hours</option>
+            <option value="24">Every 24 hours</option>
+            <option value="48">Every 48 hours</option>
+            <option value="168">Weekly</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="scan-times-group" style="display:none">
+          <label class="form-label">Last Scan</label>
+          <input type="text" class="form-input" id="last-scan-time" readonly style="background:var(--bg);color:var(--text-muted)">
+
+          <label class="form-label" style="margin-top:12px">Next Scan</label>
+          <input type="text" class="form-input" id="next-scan-time" readonly style="background:var(--bg);color:var(--text-muted)">
+        </div>
+
+        <div style="border-top:1px solid var(--border);margin:8px 0 16px"></div>
+
+        <div class="form-group">
+          <div class="toggle-row">
+            <span class="toggle-label">Auto-Approve</span>
+            <label class="toggle">
+              <input type="checkbox" id="set-auto-approve-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div id="auto-approve-section" style="display:none">
+          <div style="margin-bottom:16px;padding:14px 16px;background:rgba(230,57,70,0.15);border:1px solid #e63946;border-radius:8px;display:flex;align-items:flex-start;gap:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#e63946;margin-bottom:4px">WARNING: Auto-Approve can be destructive</div>
+              <div style="font-size:13px;color:#ff6b6b;line-height:1.5">Files matching your rules will be automatically approved and queued for encoding without any manual review. In replace mode, your original files will be permanently overwritten. Use at your own peril!</div>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">
+            After each scheduled scan, pending candidates are matched against the rules below. The first matching rule approves the file and immediately queues it for encoding using default codec settings. Rules are OR&#8209;combined.
+          </p>
+
+          <div id="auto-approve-rules-list" style="margin-bottom:16px"></div>
+
+          <div id="auto-approve-add-form" style="display:none;padding:16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:16px">
+            <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin:0 0 12px">Conditions — match files where…</p>
+
+            <div class="form-group">
+              <label class="form-label">Rule Name</label>
+              <input type="text" class="form-input" id="aar-name" placeholder="e.g. Approve HD h264">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Library</label>
+              <select class="form-select" id="aar-library">
+                <option value="">All Libraries</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Min Estimated Savings % <span style="color:var(--text-muted);font-weight:400">(empty = any)</span></label>
+              <input type="number" class="form-input" id="aar-savings" placeholder="e.g. 30" min="0" max="100" style="width:160px">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Source Resolution <span style="color:var(--text-muted);font-weight:400">(unchecked = any)</span></label>
+              <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" id="aar-res-4k" value="4k"> 4K (2160p)</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" id="aar-res-1080p" value="1080p"> 1080p</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" id="aar-res-720p" value="720p"> 720p</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" id="aar-res-480p" value="480p"> 480p / SD</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Source Codec <span style="color:var(--text-muted);font-weight:400">(unchecked = any)</span></label>
+              <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px">
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="h264"> H.264</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="hevc"> HEVC (H.265)</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="mpeg2video"> MPEG-2</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="mpeg4"> MPEG-4</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="xvid"> XviD</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="divx"> DivX</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="vc1"> VC-1</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="wmv3"> WMV</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="vp8"> VP8</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="checkbox" class="aar-codec-cb" value="vp9"> VP9</label>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border);margin:16px 0 12px"></div>
+            <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin:0 0 12px">Output — encode to…</p>
+
+            <div class="form-group">
+              <label class="form-label">Target Codec</label>
+              <div class="segmented" id="aar-target-codec-btns">
+                <button type="button" class="segmented-btn active" data-codec="hevc">HEVC (H.265)</button>
+                <button type="button" class="segmented-btn" data-codec="av1">AV1</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Target Resolution</label>
+              <div class="segmented" id="aar-target-res-btns">
+                <button type="button" class="segmented-btn active" data-res="">Keep Original</button>
+                <button type="button" class="segmented-btn" data-res="4k">4K</button>
+                <button type="button" class="segmented-btn" data-res="1080p">1080p</button>
+                <button type="button" class="segmented-btn" data-res="720p">720p</button>
+                <button type="button" class="segmented-btn" data-res="480p">480p</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Quality</label>
+              <div class="quality-btns" id="aar-quality-btns">
+                <button type="button" class="quality-btn" data-quality="1">Max<br>Compress</button>
+                <button type="button" class="quality-btn" data-quality="2">High<br>Compress</button>
+                <button type="button" class="quality-btn" data-quality="3">Balanced</button>
+                <button type="button" class="quality-btn" data-quality="4">High<br>Quality</button>
+                <button type="button" class="quality-btn" data-quality="5">Near<br>Lossless</button>
+                <button type="button" class="quality-btn active" data-quality="0">Auto</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hardware Encoding</label>
+              <div class="segmented" id="aar-hardware-btns">
+                <button type="button" class="segmented-btn active" data-hardware="inherit">Default</button>
+                <button type="button" class="segmented-btn" data-hardware="software">Software</button>
+                <button type="button" class="segmented-btn" data-hardware="hardware">Hardware</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Output Mode</label>
+              <div class="segmented" id="aar-output-mode-btns">
+                <button type="button" class="segmented-btn active" data-mode="replace">Replace Original</button>
+                <button type="button" class="segmented-btn" data-mode="copy">Create Copy</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Output Filename</label>
+              <div class="toggle-row" style="margin-bottom:10px">
+                <span class="toggle-label">Rename output file</span>
+                <label class="toggle">
+                  <input type="checkbox" id="aar-rename-enabled">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div id="aar-rename-components" style="padding-left:4px">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                  <label class="toggle" style="flex-shrink:0">
+                    <input type="checkbox" id="aar-rename-custom-text-enabled">
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <input type="text" id="aar-rename-custom-text" class="form-input" style="width:160px" placeholder="e.g. encodarr">
+                  <span style="font-size:12px;color:var(--text-muted)">Custom text</span>
+                </div>
+                <div class="toggle-row" style="margin-bottom:6px">
+                  <span class="toggle-label">Codec <span style="color:var(--text-muted);font-weight:400">(e.g. _hevc)</span></span>
+                  <label class="toggle"><input type="checkbox" id="aar-rename-include-codec"><span class="toggle-slider"></span></label>
+                </div>
+                <div class="toggle-row" style="margin-bottom:10px">
+                  <span class="toggle-label">Resolution <span style="color:var(--text-muted);font-weight:400">(only if downscaled)</span></span>
+                  <label class="toggle"><input type="checkbox" id="aar-rename-include-resolution"><span class="toggle-slider"></span></label>
+                </div>
+                <div style="margin-bottom:8px">
+                  <label class="form-label">Separator</label>
+                  <select id="aar-rename-separator" class="form-select" style="width:180px">
+                    <option value="_">Underscore ( _ )</option>
+                    <option value=".">Dot ( . )</option>
+                    <option value="-">Dash ( - )</option>
+                  </select>
+                </div>
+                <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Preview</div>
+                <div id="aar-rename-preview" style="font-size:13px;color:var(--badge-approved-text);font-family:monospace;background:var(--input-bg);padding:6px 10px;border-radius:6px"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-primary btn-sm" onclick="saveAutoApproveRule()">Save Rule</button>
+              <button class="btn btn-ghost btn-sm" onclick="cancelAutoApproveForm()">Cancel</button>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px">
+            <button class="btn btn-ghost btn-sm" id="aar-add-btn" onclick="showAutoApproveForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Rule
+            </button>
+            <button class="btn btn-ghost btn-sm" onclick="triggerAutoApprove()">Evaluate Rules Now</button>
+          </div>
+
+        </div>
+
+          </div>
+        </div><!-- /.settings-cards-col (Automation) -->
+
+        <div class="settings-cards-col">
+          <div class="stats-section-label">Security</div>
+          <div class="settings-card">
+
+        <div class="form-group">
+          <div class="toggle-row">
+            <span class="toggle-label">Password Protection</span>
+            <label class="toggle">
+              <input type="checkbox" id="set-auth-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:8px">
+            Requires a password to access the UI. For remote access, use a reverse proxy (Nginx Proxy Manager, Traefik) to add HTTPS.
+          </p>
+        </div>
+
+        <div id="security-section" style="display:none">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label" for="set-auth-username">Username</label>
+            <input type="text" class="form-input" id="set-auth-username" placeholder="Username" autocomplete="username" style="margin-bottom:12px">
+            <label class="form-label" for="set-new-password">Password</label>
+            <input type="password" class="form-input" id="set-new-password" placeholder="New password" autocomplete="new-password" style="margin-bottom:8px">
+            <input type="password" class="form-input" id="set-confirm-password" placeholder="Confirm password" autocomplete="new-password">
+            <button class="btn btn-primary btn-sm" id="save-password-btn" style="margin-top:12px">Save Credentials</button>
+          </div>
+        </div>
+
+          </div>
+
+          <div class="stats-section-label">Notifications</div>
+          <div class="settings-card">
+
+        <div class="form-group">
+          <div class="toggle-row">
+            <span class="toggle-label">Enable Notifications</span>
+            <label class="toggle">
+              <input type="checkbox" id="set-notifications-enabled">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div id="notifications-section" style="display:none">
+
+          <div class="form-group">
+            <label class="form-label" for="set-apprise-urls">Apprise Service URLs</label>
+            <textarea id="set-apprise-urls" class="form-input" rows="4"
+              placeholder="One URL per line, e.g.&#10;tgram://bottoken/chatid&#10;discord://webhook_id/webhook_token&#10;ntfy://ntfy.sh/mytopic"
+              style="resize:vertical;font-family:monospace;font-size:12px"></textarea>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:6px">
+              Supports 80+ services via <a href="https://github.com/caronc/apprise/wiki" target="_blank" style="color:var(--accent)">Apprise</a> — Telegram, Discord, ntfy, Pushover, Gotify, Slack, email and more.
+            </p>
+          </div>
+
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Events</label>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+              <div style="font-size:13px;color:var(--text-muted)">✓ Encode complete &nbsp;·&nbsp; ✓ Encode failed</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" id="notify-test-btn">Send Test Notification</button>
+          </div>
+
+        </div>
+
+          </div>
+        </div><!-- /.settings-cards-col (Security + Notifications) -->
+
+      </div><!-- /.settings-cards-row -->
+
+      <!-- Settings Reset -->
+      <div class="stats-section-label">Settings Reset</div>
+      <div class="settings-card">
+
+        <div class="form-group">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+            <button class="btn btn-danger-ghost" id="reset-missing-btn" style="flex:1 1 auto;min-width:160px">
+              Clear Missing
+            </button>
+            <button class="btn btn-danger-ghost" id="clear-metrics-btn" style="flex:1 1 auto;min-width:160px">
+              Clear Metrics
+            </button>
+            <button class="btn btn-danger-ghost" id="reset-scan-btn" style="flex:1 1 auto;min-width:160px">
+              Reset Scan History
+            </button>
+            <button class="btn btn-danger-ghost" id="reset-history-btn" style="flex:1 1 auto;min-width:160px">
+              Reset Encode History
+            </button>
+            <button class="btn btn-danger-ghost" id="reset-all-btn" style="flex:1 1 auto;min-width:160px">
+              Reset Everything
+            </button>
+          </div>
+
+          <div style="padding:14px 16px;background:rgba(230,57,70,0.15);border:1px solid #e63946;border-radius:8px;display:flex;align-items:flex-start;gap:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#e63946;margin-bottom:4px">WARNING: Reset Everything is irreversible</div>
+              <div style="font-size:13px;color:#ff6b6b;line-height:1.5"><strong style="color:#ff6b6b">Reset Everything</strong> will completely purge all scan data, encode history, and reset all settings to defaults. This returns Encodarr to a fresh install state. Media library paths will be preserved.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>

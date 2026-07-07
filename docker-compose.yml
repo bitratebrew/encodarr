@@ -1,0 +1,19 @@
+services:
+  encodarr:
+    build: .
+    ports:
+      - "6767:6767"
+    volumes:
+      - encodarr_data:/data
+      - ./media:/media
+      - ./transcode:/transcode
+    environment:
+      - MEDIA_PATH=/media
+      - DATA_PATH=/data
+      - TRANSCODE_PATH=/transcode
+      - ENCODE_CPU_LIMIT_PERCENT=80
+      - ENCODE_GPU_LIMIT_PERCENT=100
+    restart: always
+
+volumes:
+  encodarr_data:

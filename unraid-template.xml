@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>encodarr</Name>
+  <Repository>encodarr</Repository>
+  <Registry/>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/bitratebrew/encodarr/issues</Support>
+  <Project>https://github.com/bitratebrew/encodarr</Project>
+  <Overview>Self-hosted media re-encoding service with a clean web UI. Scans your media library, identifies files for re-encoding to HEVC/AV1, and replaces originals in-place. Built for Unraid with hardware encoding support (NVENC/VAAPI).</Overview>
+  <Category>MediaApp:Video MediaServer:Video Tools:</Category>
+  <WebUI>http://[IP]:[PORT:6767]</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/bitratebrew/encodarr/main/unraid-template.xml</TemplateURL>
+  <Icon>data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4NCiAgPHJlY3QgeD0iMS41IiB5PSIxLjUiIHdpZHRoPSI5NyIgaGVpZ2h0PSI5NyIgcng9IjIwIiBmaWxsPSIjMWExYTI0IiBzdHJva2U9IiMxYTFhMjQiIHN0cm9rZS13aWR0aD0iMyIvPg0KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyOCIgZmlsbD0iI2U2Mzk0NiIvPg0KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxOCIgZmlsbD0iI2ZmNmI2YiIvPg0KPC9zdmc+DQo=</Icon>
+  <ExtraParams></ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>No hardware acceleration required — Encodarr falls back to software encoding (libx265/libsvtav1) automatically. For NVIDIA hardware encoding (NVENC): install the Nvidia-Driver plugin from Community Applications, then add `--runtime=nvidia` in Extra Parameters below. For AMD/Intel hardware encoding (VAAPI): set the optional VAAPI Device field below to your GPU's render node (usually /dev/dri).</Requires>
+  <Config Name="WebUI Port" Target="6767" Default="6767" Mode="tcp" Description="Port for accessing the Encodarr web interface" Type="Port" Display="always" Required="true" Mask="false">6767</Config>
+  <Config Name="Media Library" Target="/media" Default="" Mode="rw" Description="Media library path — point to your movies, TV shows, etc." Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Application Data" Target="/data" Default="" Mode="rw" Description="Application data (database) — stores scan history and encode queue" Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Transcode Workspace" Target="/transcode" Default="" Mode="rw" Description="Temporary encoding workspace — use SSD/cache drive for best performance" Type="Path" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="VAAPI Device (optional)" Target="/dev/dri" Default="" Mode="rw" Description="Optional: AMD/Intel GPU render node for VAAPI hardware encoding, e.g. /dev/dri. Leave blank if using NVIDIA or CPU-only software encoding." Type="Device" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="MEDIA_PATH" Target="MEDIA_PATH" Default="/media" Mode="" Description="Internal path to media library (should match container mount)" Type="Variable" Display="advanced" Required="false" Mask="false">/media</Config>
+  <Config Name="DATA_PATH" Target="DATA_PATH" Default="/data" Mode="" Description="Internal path to application data (should match container mount)" Type="Variable" Display="advanced" Required="false" Mask="false">/data</Config>
+  <Config Name="TRANSCODE_PATH" Target="TRANSCODE_PATH" Default="/transcode" Mode="" Description="Internal path to transcode workspace (should match container mount)" Type="Variable" Display="advanced" Required="false" Mask="false">/transcode</Config>
+  <Config Name="ENCODE_CPU_LIMIT_PERCENT" Target="ENCODE_CPU_LIMIT_PERCENT" Default="80" Mode="" Description="Maximum CPU usage percentage during encoding (1-100)" Type="Variable" Display="always" Required="false" Mask="false">80</Config>
+  <Config Name="ENCODE_GPU_LIMIT_PERCENT" Target="ENCODE_GPU_LIMIT_PERCENT" Default="100" Mode="" Description="Maximum GPU usage percentage during encoding (1-100)" Type="Variable" Display="always" Required="false" Mask="false">100</Config>
+</Container>

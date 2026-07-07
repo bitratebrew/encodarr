@@ -1,0 +1,33 @@
+services:
+  encodarr:
+    container_name: encodarr
+    build: .
+    ports:
+      - "6767:6767"
+    volumes:
+      - /path/to/your/media:/media
+      - /path/to/your/appdata:/data
+      - /path/to/your/transcode:/transcode
+    environment:
+      - MEDIA_PATH=/media
+      - DATA_PATH=/data
+      - TRANSCODE_PATH=/transcode
+      - ENCODE_CPU_LIMIT_PERCENT=80
+      - ENCODE_GPU_LIMIT_PERCENT=100
+    # No hardware acceleration enabled by default — works out of the box with software
+    # encoding (libx265/libsvtav1) on any system. Uncomment ONE of the blocks below to
+    # match your actual GPU; Encodarr auto-detects whichever is available at startup.
+    #
+    # NVIDIA (NVENC) — requires the NVIDIA Container Toolkit on the host:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    #
+    # AMD / Intel (VAAPI) — requires the host's render node device:
+    # devices:
+    #   - /dev/dri:/dev/dri
+    restart: unless-stopped
