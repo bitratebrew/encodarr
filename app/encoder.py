@@ -251,6 +251,7 @@ def _get_duration_seconds(input_path: str) -> float:
             ["ffprobe", "-v", "error",
              "-show_entries", "format=duration",
              "-of", "csv=p=0",
+             "--",  # end of options: guard against leading-dash filenames
              input_path],
             capture_output=True, text=True, timeout=10,
         )
