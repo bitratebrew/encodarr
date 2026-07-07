@@ -37,6 +37,7 @@ def _run_ffprobe(file_path: str) -> dict | None:
         "-print_format", "json",
         "-show_streams",
         "-show_format",
+        "--",  # end of options: a filename starting with '-' can't be read as a flag
         file_path,
     ]
     try:

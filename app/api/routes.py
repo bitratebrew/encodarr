@@ -778,12 +778,22 @@ def trigger_auto_approve():
 # Settings
 # ---------------------------------------------------------------------------
 
+# Settings keys that must never be sent to the client. secret_key signs session
+# tokens (leaking it lets anyone forge a valid cookie); auth_password_hash is the
+# bcrypt hash. The frontend only needs to know whether auth is on, exposed as the
+# derived auth_enabled bool below.
+_SETTINGS_SECRET_KEYS = {"secret_key", "auth_password_hash"}
+
+
 @router.get("/settings")
 def get_settings():
     settings = get_all_settings()
     scan_info = get_scheduled_scan_info()
+    auth_enabled = bool(settings.get("auth_password_hash"))
+    public_settings = {k: v for k, v in settings.items() if k not in _SETTINGS_SECRET_KEYS}
     return {
-        **settings,
+        **public_settings,
+        "auth_enabled": auth_enabled,
         **scan_info,
     }
 

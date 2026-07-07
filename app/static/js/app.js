@@ -659,10 +659,10 @@
               <td data-label="Actions">
                 <div class="action-cell">
                   ${c.status === 'pending' ? `
-                    <button class="btn btn-ghost btn-sm" onclick="openApproveModal(${c.id}, '${escHtml(basename(c.file_path))}')">Approve</button>
+                    <button class="btn btn-ghost btn-sm" data-fname="${escHtml(basename(c.file_path))}" onclick="openApproveModal(${c.id}, this.dataset.fname)">Approve</button>
                     <button class="btn btn-danger-ghost btn-sm" onclick="skipCandidate(${c.id}, this)">Skip</button>
                   ` : c.status === 'failed' ? `
-                    <button class="btn btn-ghost btn-sm" onclick="openApproveModal(${c.id}, '${escHtml(basename(c.file_path))}', true)">Retry</button>
+                    <button class="btn btn-ghost btn-sm" data-fname="${escHtml(basename(c.file_path))}" onclick="openApproveModal(${c.id}, this.dataset.fname, true)">Retry</button>
                     <button class="btn btn-danger-ghost btn-sm" onclick="ignoreCandidate(${c.id}, this)">Ignore</button>
                   ` : '—'}
                 </div>
@@ -1663,7 +1663,7 @@
       updateRenamePreview();
 
       // Security
-      const authEnabled = !!s.auth_password_hash;
+      const authEnabled = !!s.auth_enabled;
       document.getElementById('set-auth-enabled').checked = authEnabled;
       document.getElementById('security-section').style.display = authEnabled ? 'block' : 'none';
       document.getElementById('logout-form').style.display = authEnabled ? 'block' : 'none';

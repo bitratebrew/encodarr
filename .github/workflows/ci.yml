@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: encodarr:ci-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Start container
+        run: |
+          mkdir -p /tmp/ci-media /tmp/ci-data /tmp/ci-transcode
+          docker run -d --name encodarr-ci \
+            -p 6767:6767 \
+            -e MEDIA_PATH=/media \
+            -e DATA_PATH=/data \
+            -e TRANSCODE_PATH=/transcode \
+            -v /tmp/ci-media:/media \
+            -v /tmp/ci-data:/data \
+            -v /tmp/ci-transcode:/transcode \
+            encodarr:ci-test
+
+      - name: Wait for app to respond
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:6767/login > /dev/null; then
+              echo "App responded after ${i}s"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "App did not respond within 30s"
+          exit 1
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker logs encodarr-ci || true
+
+      - name: Clean up
+        if: always()
+        run: docker rm -f encodarr-ci || true
