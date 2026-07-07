@@ -13,7 +13,7 @@
   <Category>MediaApp:Video MediaServer:Video Tools:</Category>
   <WebUI>http://[IP]:[PORT:6767]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/bitratebrew/encodarr/main/unraid-template.xml</TemplateURL>
-  <Icon>data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4NCiAgPHJlY3QgeD0iMS41IiB5PSIxLjUiIHdpZHRoPSI5NyIgaGVpZ2h0PSI5NyIgcng9IjIwIiBmaWxsPSIjMWExYTI0IiBzdHJva2U9IiMxYTFhMjQiIHN0cm9rZS13aWR0aD0iMyIvPg0KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyOCIgZmlsbD0iI2U2Mzk0NiIvPg0KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxOCIgZmlsbD0iI2ZmNmI2YiIvPg0KPC9zdmc+DQo=</Icon>
+  <Icon>https://raw.githubusercontent.com/bitratebrew/encodarr/main/icon.png</Icon>
   <ExtraParams></ExtraParams>
   <PostArgs/>
   <CPUset/>
